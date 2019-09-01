@@ -49,10 +49,13 @@ USER $NB_USER
 
 
 
-# Launch the notebook server
 WORKDIR $HOME
-# Add bigmc to path
-CMD ["jupyter", "notebook", "--ip", "0.0.0.0"]
+
+# Download Latest Synkrisis Release
+RUN curl -L https://www.github.com/AlessandroCaste/Synkrisis/releases/latest/download/Synkrisis.jar > Synkrisis.jar
+
+RUN echo 'alias synkrisis="java -jar /home/jovyan/Synkrisis.jar"' >> ~/.bashrc
+
 
 # PRISM installation
 RUN cd lib/prism-4.5-linux64 \ 
@@ -63,3 +66,4 @@ RUN cd lib/spot-2.8.1 \
     && make \
     && make install \
     && cd
+
